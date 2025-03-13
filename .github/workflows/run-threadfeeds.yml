@@ -22,4 +22,5 @@ jobs:
               New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\temp" | Out-Null
           }
           # Execute your script (make sure the file name and path are correct)
-          .\threatfeed.ps1
+          .\scripts\threatfeed.ps1
+
