@@ -1,0 +1,25 @@
+name: Run Threat Feed Script
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # This example runs every hour; adjust as needed.
+  workflow_dispatch:      # Allows manual triggering from the Actions tab
+
+jobs:
+  run-script:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Threat Feed PowerShell Script
+        shell: pwsh
+        env:
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        run: |
+          # Create a temp directory inside the workspace if it doesn't exist
+          if (!(Test-Path "$env:GITHUB_WORKSPACE\temp")) {
+              New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\temp" | Out-Null
+          }
+          # Execute your script (make sure the file name and path are correct)
+          .\threatfeed.ps1
